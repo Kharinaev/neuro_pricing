@@ -1,0 +1,11 @@
+wandb/debug-internal.log
+wandb/debug.log
+wandb/latest-run
+wandb/run-20230422_200443-u3iirwom/run-u3iirwom.wandb
+wandb/run-20230422_200443-u3iirwom/files/conda-environment.yaml
+wandb/run-20230422_200443-u3iirwom/files/config.yaml
+wandb/run-20230422_200443-u3iirwom/files/requirements.txt
+wandb/run-20230422_200443-u3iirwom/files/wandb-metadata.json
+wandb/run-20230422_200443-u3iirwom/files/wandb-summary.json
+wandb/run-20230422_200443-u3iirwom/logs/debug-internal.log
+wandb/run-20230422_200443-u3iirwom/logs/debug.log
