@@ -9,3 +9,8 @@ wandb/run-20230422_200443-u3iirwom/files/wandb-metadata.json
 wandb/run-20230422_200443-u3iirwom/files/wandb-summary.json
 wandb/run-20230422_200443-u3iirwom/logs/debug-internal.log
 wandb/run-20230422_200443-u3iirwom/logs/debug.log
+
+*.csv
+classic_models
+logs
+tmp
