@@ -86,8 +86,8 @@ class ANN(nn.Module):
             if self.struct[0] == 4:
                 cur_batch = torch.tensor(np.vstack([
                     np.log(stock_price / strikes),
-                    np.repeat(0.05, len(strikes)),
                     np.repeat(t, len(strikes)),
+                    np.repeat(0.05, len(strikes)),
                     np.log(opt_prices[i] / strikes),
                 ]), dtype=torch.float32).T.to(self.device)
 
@@ -106,6 +106,7 @@ class ANN(nn.Module):
 
     def MSE_all(self, df_list, maturities, stock_price, r):
         self.eval()
+        sse, cnt = 0, 0
         for i, (t, df) in enumerate(zip(maturities, df_list)):
             cnt += len(df)
 
