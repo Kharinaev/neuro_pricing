@@ -14,3 +14,5 @@ wandb/run-20230422_200443-u3iirwom/logs/debug.log
 classic_models
 logs
 tmp
+
+__pycache__
