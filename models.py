@@ -8,6 +8,7 @@ class SABR:
     def __init__(self, stock_price):
         self.stock_price = stock_price
         self.params = []
+        print('sabr init')
     
     @staticmethod
     def volatility(strikes, stock_price, t, alpha, beta, rho, nu):
@@ -24,7 +25,7 @@ class SABR:
 
     def fit(self, strikes, mrkt_vols, expiration:float, frac_ootm=1, frac_itm=1):
         
-        def RSS_SABR(params, t, stock_price):
+        def RSS_SABR(params, t, stock_price, strikes, mrkt_vols):
             sabr_vols = self.volatility(strikes, stock_price, t, *params)
             return np.sum(np.square(sabr_vols - mrkt_vols))
         
@@ -43,7 +44,7 @@ class SABR:
             mrkt_vols = mrkt_vols[mask_relevant]
 
         # alpha, beta, rho, nu
-        min_args = (expiration, self.stock_price)
+        min_args = (expiration, self.stock_price, strikes, mrkt_vols)
         x0 = [0.001, 1, -0.999, 0.001]
         bounds = ((0.001, None), (1, 1), (-0.999, 0.999), (0.001, None))
         res = minimize(RSS_SABR, x0, min_args, bounds=bounds)
@@ -176,13 +177,14 @@ class Heston(ql.HestonModel):
 
 class Variance_Gamma:
     
-    def __init__(self, stock_price, evaluation_date='2022-03-16', q=0.0, r=0.05):
+    def __init__(self, stock_price, evaluation_date='2022-03-16', q=0.0, r=0.05, option_type='call'):
         self.evaluation_date = evaluation_date
         ql.Settings.instance().evaluationDate = ql.Date(evaluation_date, '%Y-%m-%d')
         self.params = []
         self.stock_price = stock_price
         self.q = q
         self.r = r
+        self.option_type = option_type
 
     def get_option_obj(
         self,
@@ -237,7 +239,7 @@ class Variance_Gamma:
         )
 
         strikes = np.array(strikes)
-        put_call = 'call'
+        put_call = self.option_type
 
         return ft_pricer.calc_price(strikes, put_call)
 
@@ -272,6 +274,7 @@ class Variance_Gamma:
             iv_params (tuple) : exercise, S, q, r, sigma
         """
         ivs = []
+        ql_opt = ql.Option.Call if self.option_type == 'call' else ql.Option.Put
         for V, K in zip(opt_prices, strikes):
             payoff = ql.PlainVanillaPayoff(ql.Option.Call, K)
             option = ql.EuropeanOption(payoff, iv_params[0])
