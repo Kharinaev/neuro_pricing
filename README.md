@@ -21,3 +21,7 @@ Final qualifying paper of the CMC MSU bachelor's degree
 
 
 ## Volatility surface example / Пример поверхности волатильности
+
+|<img width="2000" alt="" src="img/mrkt_call_surface.png">|  <img width="2000" alt="" src="img/sabr_call_surface.png">|<img width="2000" alt="" src="img/nn_a_call_surface.png">|
+|:---:|:---:|:---:|
+|<img width="2000" alt="" src="img/heston_call_surface.png">|  <img width="2000" alt="" src="img/vg_call_surface.png">|<img width="2000" alt="" src="img/nn_b_call_surface.png">|
