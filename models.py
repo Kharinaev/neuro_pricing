@@ -8,7 +8,6 @@ class SABR:
     def __init__(self, stock_price):
         self.stock_price = stock_price
         self.params = []
-        print('sabr init')
     
     @staticmethod
     def volatility(strikes, stock_price, t, alpha, beta, rho, nu):
@@ -276,7 +275,7 @@ class Variance_Gamma:
         ivs = []
         ql_opt = ql.Option.Call if self.option_type == 'call' else ql.Option.Put
         for V, K in zip(opt_prices, strikes):
-            payoff = ql.PlainVanillaPayoff(ql.Option.Call, K)
+            payoff = ql.PlainVanillaPayoff(ql_opt, K)
             option = ql.EuropeanOption(payoff, iv_params[0])
             process = ql.BlackScholesMertonProcess(*iv_params[1:])
             ivs.append(option.impliedVolatility(V, process))
